@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>City Data Extractor</title>
+
+  <!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+>
+      <link rel="stylesheet" href="zones.css" />
+</head>
+
+<body>
+
+  <header>
+    <h1>City Data Extractor</h1>
+    <p>
+      Extraction de données Leaflet - OpenStreetMap
+    </p>
+  </header>
+
+  <main>
+
+    <aside class="panel">
+      <h2>Extraction</h2>
+
+      <label for="city">Nom de la ville</label>
+
+      <input
+        type="text"
+        id="city"
+        placeholder="Ex. : Ussel, Clermont-Ferrand..."
+        autocomplete="off"
+      >
+
+      <button id="btn-search" type="button">
+        Rechercher 
+      </button>
+
+      <button id="btn-export" type="button" disabled>
+        Exporter en JSON
+      </button>
+      <div id="export-options" class="export-options" hidden>
+  <h3>Configuration de l'export</h3>
+
+  <p class="export-description">
+    Données à télécharger.
+  </p>
+
+  <label class="export-check">
+    <input type="checkbox" name="export-category"
+           value="batiments" checked>
+    Bâtiments
+  </label>
+
+  <label class="export-check">
+    <input type="checkbox" name="export-category"
+           value="routes" checked>
+    Routes et chemins
+  </label>
+
+  <label class="export-check">
+    <input type="checkbox" name="export-category"
+           value="relations">
+    Relations entre bâtiments
+  </label>
+
+  <label class="export-check">
+    <input type="checkbox" name="export-category"
+           value="metadata" checked>
+    Métadonnées de la ville
+  </label>
+
+  <div class="export-separator"></div>
+
+  <label for="export-profile">Profil de sortie</label>
+  <select id="export-profile">
+    <option value="universal">Universel (JSON)</option>
+    <option value="unreal">Unreal Engine 5</option>
+    <option value="godot">Godot</option>
+    <option value="modding">Modding</option>
+  </select>
+
+  <label class="export-check">
+    <input type="checkbox" id="export-split">
+    Découper les données en secteurs de 500 mètres
+  </label>
+
+  <label class="export-check">
+    <input type="checkbox" id="export-materials">
+    Inclure les matériaux par défaut
+  </label>
+
+  <div id="export-preview">
+    Sélectionne les catégories à exporter.
+  </div>
+
+  <button id="btn-generate-export" type="button">
+    Générer et télécharger
+  </button>
+</div>
+
+
+      <div id="status" role="status" aria-live="polite">
+        En attente d'une recherche.
+      </div>
+
+      <div id="stats">
+        Aucune donnée extraite.
+      </div>
+
+      <div class="info">
+        <strong>Données récupérées :</strong>
+        <ul>
+          <li>Bâtiments et leurs contours</li>
+          <li>Routes et tracés GPS</li>
+          <li>Surfaces et périmètres</li>
+          <li>Coordonnées locales en mètres</li>
+          <li>Relations spatiales entre bâtiments</li>
+        </ul>
+
+        <p>
+          Les résultats dépendent des données disponibles
+          dans OpenStreetMap pour la zone recherchée.
+        </p>
+      </div>
+    </aside>
+
+    <section class="panel map-panel">
+      <h2>Visualisation de la ville</h2>
+      <div id="map"></div>
+    </section>
+
+  </main>
+
+  <footer>
+    Données © OpenStreetMap contributors
+  </footer>
+
+  <!-- Leaflet JavaScript -->
+  <script   src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""></script>
+
+
+  <!-- zip -->
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <!-- script JavaScript -->
+  <script src="zones.js"></script>
+
+</body>
+</html>
